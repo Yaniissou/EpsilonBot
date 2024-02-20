@@ -11,21 +11,20 @@ import java.util.List;
 
 public class Main {
 
-    public static long SERVER_ID = 1209564843775098991L;
+    public static long SERVER_ID = 1196782142739447858L;
 
-    public static long ANNOUNCE_CHANNEL_ID = 1209564850142056531L;
-    public static long LOGS_CHANNEL_ID = 1209580226024317008L;
+    public static long ANNOUNCE_CHANNEL_ID = 1196782376269918299L;
+    public static long LOGS_CHANNEL_ID = 1201545255024087161L;
     public static List<Long> WHITELISTED_IDS = Arrays.asList(262674203931574273L, 191213751746166785L);
     public static long BOT_ID = 1209564326902366249L;
-
-    public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L)
+    public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L);
 
     public static void main(String[] args) {
 
 
         JDABuilder builder = JDABuilder.createDefault(args[0]);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);
-        builder.addEventListeners(new AnnonceCommand(), new ReactionListener());
+
 
 
         JDA jda = builder.build();
@@ -40,6 +39,8 @@ public class Main {
 
 
         ).queue();
+
+        jda.addEventListener(new AnnonceCommand(jda), new ReactionListener(jda));
 
 
     }
