@@ -1,0 +1,43 @@
+package org.example;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.awt.*;
+
+public class AnnonceCommand extends ListenerAdapter {
+
+   @Override
+   public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+       if (event.getName().equals("annonce")) {
+
+           if (!Main.WHITELISTED_IDS.contains(event.getMember().getIdLong())){
+               event.reply("Vous ne pouvez pas utiliser cette commande.").setEphemeral(true).queue();
+               return;
+           }
+           if (event.getChannel().getIdLong() != Main.ANNOUNCE_CHANNEL_ID){
+               event.reply("Veuillez utiliser le salon " + event.getGuild().getTextChannelById(Main.ANNOUNCE_CHANNEL_ID).getAsMention()).setEphemeral(true).queue();
+               return;
+           }
+           //infos given by command
+           String date = event.getOption("date").getAsString();
+           String horaire = event.getOption("horaire").getAsString();
+           String mdj = event.getOption("mdj").getAsString();
+           String description = event.getOption("description").getAsString();
+
+           EmbedBuilder embed = new EmbedBuilder();
+           embed.setColor(Color.RED);
+           embed.setTitle("Annonce UHC");
+           embed.setDescription("\uD83D\uDCD6 **Informations** \n" + description);
+           embed.addField("\uD83D\uDD70\uFE0F **Date et heure**", date + " à " + horaire, false);
+           embed.addField("\uD83C\uDF4E **Mode de jeu** ", mdj, false);
+           embed.setFooter("Réagissez avec ✅ pour participer à la partie" , null);
+
+           event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> message.addReaction(Emoji.fromUnicode("\u2705")).queue());
+           event.reply("Annonce envoyée avec succès !").setEphemeral(true).queue();
+       }
+   }
+}
+
