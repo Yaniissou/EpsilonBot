@@ -8,13 +8,17 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
-    public static long SERVER_ID = 1196782142739447858L;
+
+   // public static long SERVER_ID = 1196782142739447858L;
+    //TESTING :
+    public static long SERVER_ID =1209564843775098991L;
 
     // public static long ANNOUNCE_CHANNEL_ID = 1196782376269918299L;
     //TESTING :
@@ -67,5 +71,29 @@ public class Main {
         jda.addEventListener(new AnnonceCommand(jda), new ReactionListener(jda));
 
 
+    }
+
+    public static void insertData(Connection conn, String valeurColonne1, String valeurColonne2) {
+        try {
+            // Requête SQL d'insertion de données
+            String sql = "INSERT INTO nom_de_la_table (colonne1, colonne2) VALUES (?, ?)";
+
+            // Création de l'objet PreparedStatement
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            // Remplacement des ? par les valeurs à insérer
+            pstmt.setString(1, valeurColonne1);
+            pstmt.setString(2, valeurColonne2);
+
+            // Exécution de la requête d'insertion
+            pstmt.executeUpdate();
+
+            // Fermeture des ressources
+            pstmt.close();
+
+            System.out.println("Données insérées avec succès !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'insertion des données : " + e.getMessage());
+        }
     }
 }
