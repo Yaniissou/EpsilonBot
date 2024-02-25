@@ -26,6 +26,7 @@ public class AnnonceCommand extends ListenerAdapter {
            }
            if (event.getGuild().getIdLong() != Main.SERVER_ID){
                event.reply("Cette commande est désactivée sur ce serveur.").setEphemeral(true).queue();
+               return;
            }
            if (event.getChannel().getIdLong() != Main.ANNOUNCE_CHANNEL_ID){
                event.reply("Veuillez utiliser le salon " + event.getGuild().getTextChannelById(Main.ANNOUNCE_CHANNEL_ID).getAsMention()).setEphemeral(true).queue();
