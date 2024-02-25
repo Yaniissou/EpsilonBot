@@ -25,4 +25,4 @@ ENV DISCORD_TOKEN=${DISCORD_TOKEN}
 # Copiez votre fichier JAR dans le conteneur
 COPY --from=build /usr/src/app/target/EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar /app/EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar
 # Commande d'exécution pour démarrer votre application
-CMD ["java", "-jar", "EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar", "${DISCORD_TOKEN}"]
+CMD java -jar EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar ${DISCORD_TOKEN}
