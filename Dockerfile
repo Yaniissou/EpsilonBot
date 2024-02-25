@@ -4,7 +4,6 @@ FROM maven:3.8.4 AS build
 # Copiez le code source de votre application dans le conteneur
 RUN git clone https://github.com/Yaniissou/EpsilonBot /usr/src/app
 
-sleep 5
 # Définissez le répertoire de travail
 WORKDIR /usr/src/app
 
