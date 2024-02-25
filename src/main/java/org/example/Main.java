@@ -33,6 +33,7 @@ public class Main {
     public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
     public static void main(String[] args) {
 
+        System.out.println("TESTING HERE");
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
 
