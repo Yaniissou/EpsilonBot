@@ -35,8 +35,8 @@ public class Main {
     //public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L);
     //TESTING :
     public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
         System.out.println("TESTING HERE");
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
