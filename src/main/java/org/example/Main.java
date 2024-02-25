@@ -34,7 +34,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Chemin absolu vers la base de données SQLite
-        String dbPath = "/app/data/botDB.db";
+        String dbPath = "/app/db/botDB.db";
 
         // Connexion à la base de données SQLite
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath)) {
