@@ -31,3 +31,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        args: |
+          --build-arg DISCORD_TOKEN=${DISCORD_TOKEN}

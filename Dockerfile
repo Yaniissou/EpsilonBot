@@ -16,7 +16,13 @@ FROM amazoncorretto:17
 # Définissez le répertoire de travail
 WORKDIR /app
 
+# Utilisez ARG pour récupérer l'argument de construction
+ARG DISCORD_TOKEN
+
+# Définissez-le comme une variable d'environnement si nécessaire
+ENV DISCORD_TOKEN=${DISCORD_TOKEN}
+
 # Copiez votre fichier JAR dans le conteneur
 COPY --from=build /usr/src/app/target/EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar /app/EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar
 # Commande d'exécution pour démarrer votre application
-CMD ["java", "-jar", "EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar", "$TOKEN"]
+CMD ["java", "-jar", "EpsilonBot-1.0-SNAPSHOT-jar-with-dependencies.jar", "$DISCORD_TOKEN"]
