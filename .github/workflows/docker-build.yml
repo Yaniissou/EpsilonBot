@@ -22,4 +22,4 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push image to Docker Hub
-        run: docker push epsilonbot:latest
+        run: docker push yanissou/epsilonbot:latest
