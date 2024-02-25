@@ -18,10 +18,10 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -q -t epsilonbot:latest .
+        run: docker build -q -t epsilonbot .
 
       - name: Tag Docker image
-        run: docker tag epsilonbot:latest yanissou:epsilonbot:latest
+        run: docker tag epsilonbot yanissou:epsilonbot
 
       - name: Push Docker image to Docker Hub
-        run: docker push yanissou:epsilonbot:latest
+        run: docker push yanissou:epsilonbot
