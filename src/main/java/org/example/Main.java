@@ -34,6 +34,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("TESTING HERE");
+        System.out.println(args[0]);
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
 
