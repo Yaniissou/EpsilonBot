@@ -55,6 +55,7 @@ public class Main {
                         .setGuildOnly(true)
                         .addOption(OptionType.STRING, "date", "La date de l'UHC", true)
                         .addOption(OptionType.STRING, "horaire", "L'heure de l'UHC", true)
+                        .addOption(OptionType.STRING, "slots", "Le nombre de slots maximum", true)
                         .addOption(OptionType.STRING, "mdj", "Le mode de jeu", true)
                         .addOption(OptionType.STRING, "description", "Informations sur la partie", true)
 
