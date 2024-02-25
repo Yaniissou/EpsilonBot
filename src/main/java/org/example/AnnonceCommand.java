@@ -61,7 +61,7 @@ public class AnnonceCommand extends ListenerAdapter {
            event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> {
                message.addReaction(Emoji.fromUnicode("\u2705")).queue();
                try {
-                   DatabaseManager.connect("/app/db/botDB.d");
+                   DatabaseManager.connect("/app/db/botDB.db");
                    DatabaseManager.insertMessage(message.getId(),message.getAuthor().getId(),mdj);
                    DatabaseManager.close();
                } catch (SQLException e) {
