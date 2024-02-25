@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class DatabaseManager {
     private static Connection conn;
@@ -60,6 +61,13 @@ public class DatabaseManager {
         if (conn != null && !conn.isClosed()) {
             conn.close();
         }
+    }
+
+    public static void insertMessage(String messageId, String authorId, String game_mode) throws SQLException{
+        String[] columns = {"discord_message_id","game_mode","author_discord_id"};
+        String[] values = {messageId,game_mode,authorId};
+        DatabaseManager.insertData("messages", columns, values);
+
     }
 }
 

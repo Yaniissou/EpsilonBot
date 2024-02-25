@@ -2,12 +2,15 @@ package org.example;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.Arrays;
 
 public class AnnonceCommand extends ListenerAdapter {
 
@@ -54,9 +57,22 @@ public class AnnonceCommand extends ListenerAdapter {
 
            StringBuilder sb = new StringBuilder();
            Main.ROLES_TO_PING.forEach(roleid -> sb.append(event.getGuild().getRoleById(roleid).getAsMention()));
-           //event.getChannel().sendMessage(sb.toString()).queue();
-           event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> message.addReaction(Emoji.fromUnicode("\u2705")).queue());
+           event.getChannel().sendMessage(sb.toString()).queue();
+           event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> {
+               message.addReaction(Emoji.fromUnicode("\u2705")).queue();
+               try {
+                   DatabaseManager.connect("/app/db/botDB.d");
+                   DatabaseManager.insertMessage(message.getId(),message.getAuthor().getId(),mdj);
+                   DatabaseManager.close();
+               } catch (SQLException e) {
+                   throw new RuntimeException(e);
+               }
+
+           });
            event.reply("Annonce envoyée avec succès !").setEphemeral(true).queue();
+
+
+
        }
    }
 }
