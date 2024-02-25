@@ -21,7 +21,7 @@ jobs:
         run: docker build -q -t epsilonbot .
 
       - name: Tag Docker image
-        run: docker tag epsilonbot yanissou:epsilonbot
+        run: docker tag epsilonbot:latest yanissou:epsilonbot
 
       - name: Push Docker image to Docker Hub
         run: docker push yanissou:epsilonbot
