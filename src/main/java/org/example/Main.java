@@ -16,28 +16,26 @@ import java.util.List;
 public class Main {
 
 
-   // public static long SERVER_ID = 1196782142739447858L;
+    public static long SERVER_ID = 1196782142739447858L;
     //TESTING :
-    public static long SERVER_ID =1209564843775098991L;
+    //public static long SERVER_ID =1209564843775098991L;
 
-    // public static long ANNOUNCE_CHANNEL_ID = 1196782376269918299L;
+    public static long ANNOUNCE_CHANNEL_ID = 1196782376269918299L;
     //TESTING :
-    public static long ANNOUNCE_CHANNEL_ID = 1209564850142056531L;
+    //public static long ANNOUNCE_CHANNEL_ID = 1209564850142056531L;
 
-    //public static long LOGS_CHANNEL_ID = 1201545255024087161L;
+    public static long LOGS_CHANNEL_ID = 1201545255024087161L;
     //TESTING :
-    public static long LOGS_CHANNEL_ID = 1209580226024317008L;
+    //public static long LOGS_CHANNEL_ID = 1209580226024317008L;
     public static List<Long> WHITELISTED_IDS = Arrays.asList(262674203931574273L, 191213751746166785L);
-    //public static long BOT_ID = 1209564326902366249L;
-    //TESTING :
     public static long BOT_ID = 1209564326902366249L;
-
-    //public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L);
     //TESTING :
-    public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
-    public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
-        System.out.println("TESTING HERE");
+    //public static long BOT_ID = 1209564326902366249L;
+
+    public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L);
+    //TESTING :
+    //public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
+    public static void main(String[] args){
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
 
