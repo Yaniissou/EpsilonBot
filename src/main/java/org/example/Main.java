@@ -50,6 +50,7 @@ public class Main {
 
         JDABuilder builder = JDABuilder.createDefault(args[0]);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);
+        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT);
 
 
         JDA jda = builder.build();
