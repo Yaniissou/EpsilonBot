@@ -2,7 +2,7 @@ package org.example;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class AnnonceCommand extends ListenerAdapter {
 
@@ -44,8 +43,11 @@ public class AnnonceCommand extends ListenerAdapter {
 
            long userID = event.getMember().getIdLong();
            User user = jda.retrieveUserById(userID).complete();
-           event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID).createCopy().queue();
-           event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID).delete().queue();
+
+           //Clear logs channel
+           MessageHistory history = MessageHistory.getHistoryFromBeginning(event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID)).complete();
+           history.getRetrievedHistory().forEach(m -> m.delete().queue());
+
 
            EmbedBuilder embed = new EmbedBuilder();
            embed.setAuthor(user.getName(), user.getAvatarUrl(), user.getAvatarUrl());
