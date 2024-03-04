@@ -44,7 +44,8 @@ public class AnnonceCommand extends ListenerAdapter {
 
            long userID = event.getMember().getIdLong();
            User user = jda.retrieveUserById(userID).complete();
-
+           event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID).createCopy().queue();
+           event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID).delete().queue();
 
            EmbedBuilder embed = new EmbedBuilder();
            embed.setAuthor(user.getName(), user.getAvatarUrl(), user.getAvatarUrl());
