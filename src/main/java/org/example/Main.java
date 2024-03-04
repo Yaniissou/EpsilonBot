@@ -33,9 +33,10 @@ public class Main {
     //public static long BOT_ID = 1209564326902366249L;
 
     public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L);
+
     //TESTING :
     //public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
 
@@ -51,7 +52,6 @@ public class Main {
         builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);
 
 
-
         JDA jda = builder.build();
         jda.updateCommands().addCommands(
                 Commands.slash("annonce", "Annoncer une partie d'UHC")
@@ -63,10 +63,9 @@ public class Main {
                         .addOption(OptionType.STRING, "description", "Informations sur la partie", true)
 
 
-
         ).queue();
 
-        jda.addEventListener(new AnnonceCommand(jda), new ReactionListener(jda));
+        jda.addEventListener(new AnnonceCommand(jda), new ReactionListener(jda), new MessageListener());
 
 
     }
