@@ -10,7 +10,7 @@ public class MessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event){
-        if (event.getMessage().toString().endsWith("quoi")){
+        if (event.getMessage().getContentRaw().endsWith("quoi")){
             event.getChannel().sendMessage("feur").queue();
         }
     }
