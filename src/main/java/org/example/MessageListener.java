@@ -13,7 +13,7 @@ public class MessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event){
         if (event.getMessage().getContentRaw().endsWith("quoi")){
-            (new Random().nextInt(2) == 1 ? event.getChannel().sendMessage("feur").queue() : event.getChannel().sendMessage("coubeh").queue();
+             event.getChannel().sendMessage(new Random().nextInt(2) == 1 ? "feur" : "coubeh").queue();
 
         }
     }
