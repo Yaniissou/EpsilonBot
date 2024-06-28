@@ -32,7 +32,7 @@ public class Main {
     //TESTING :
     //public static long BOT_ID = 1209564326902366249L;
 
-    public static List<Long> ROLES_TO_PING = Arrays.asList(1196782266861502484L, 1209253560445960243L);
+    public static List<Long> ROLES_TO_PING = List.of(1209253560445960243L);
 
     //TESTING :
     //public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
