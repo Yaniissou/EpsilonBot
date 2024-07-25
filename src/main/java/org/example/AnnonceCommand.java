@@ -63,6 +63,7 @@ public class AnnonceCommand extends ListenerAdapter {
            event.getChannel().sendMessage(sb.toString()).queue();
            event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> {
                message.addReaction(Emoji.fromUnicode("\u2705")).queue();
+               message.createThreadChannel("Mettez vos pseudos ici !").queue();
                try {
                    DatabaseManager.connect("/app/db/botDB.db");
                    DatabaseManager.insertMessage(message.getId(),message.getAuthor().getId(),mdj);
