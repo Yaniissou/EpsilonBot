@@ -15,7 +15,7 @@ public class MessageListener extends ListenerAdapter {
         if (event.getMessage().getContentRaw().endsWith("quoi")){
              event.getChannel().sendMessage(new Random().nextInt(2) == 1 ? "feur" : "coubeh").queue();
         } else if (event.getMessage().getAuthor().getId().equalsIgnoreCase("639734043906408448")){
-            event.getMessage().addReaction(Emoji.fromUnicode("\uD83D\uDC35")).queue();
+            event.getMessage().addReaction(Emoji.fromUnicode("\uD83E\uDD8B")).queue();
         }
     }
 }
