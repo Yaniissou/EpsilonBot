@@ -23,7 +23,7 @@ public class AnnonceCommand extends ListenerAdapter {
    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
        if (event.getName().equals("annonce")) {
 
-           if (!Main.WHITELISTED_IDS.contains(event.getMember().getIdLong()) || event.getMember().getRoles().stream().map(role -> role.getIdLong()).collect(Collectors.toList()).contains(Main.HOST_ROLE_ID)){
+           if (!Main.WHITELISTED_IDS.contains(event.getMember().getIdLong()) || !event.getMember().getRoles().stream().map(role -> role.getIdLong()).collect(Collectors.toList()).contains(Main.HOST_ROLE_ID)){
                event.reply("Vous ne pouvez pas utiliser cette commande.").setEphemeral(true).queue();
                return;
            }
