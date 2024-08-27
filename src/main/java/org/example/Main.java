@@ -28,6 +28,7 @@ public class Main {
     //TESTING :
     //public static long LOGS_CHANNEL_ID = 1209580226024317008L;
     public static List<Long> WHITELISTED_IDS = Arrays.asList(262674203931574273L, 191213751746166785L);
+    public static long HOST_ROLE_ID = 1272542290967003218L;
     public static long BOT_ID = 1209564326902366249L;
     //TESTING :
     //public static long BOT_ID = 1209564326902366249L;
