@@ -20,7 +20,7 @@ public class Main {
     //TESTING :
     //public static long SERVER_ID =1209564843775098991L;
 
-    public static long ANNOUNCE_CHANNEL_ID = 1196782376269918299L;
+    public static List<Long> ANNOUNCE_CHANNEL_IDS = Arrays.asList(1196782376269918299L,1277779555196862551L);
     //TESTING :
     //public static long ANNOUNCE_CHANNEL_ID = 1209564850142056531L;
 
