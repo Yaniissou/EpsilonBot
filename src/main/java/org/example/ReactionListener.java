@@ -36,6 +36,8 @@ public class ReactionListener extends ListenerAdapter {
         embed.setDescription(user.getAsMention() + " a ajouté une réaction");
         embed.setThumbnail(user.getAvatarUrl());
 
+        Main.PARTICIPANTS.add(userID);
+
         event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID).sendMessageEmbeds(embed.build()).queue();
 
     }
@@ -48,6 +50,11 @@ public class ReactionListener extends ListenerAdapter {
         if (event.retrieveMessage().complete().getAuthor().getIdLong() != (Main.BOT_ID)){
             return;
         }
+
+        if (!Main.ANNOUNCE_CHANNEL_IDS.contains(event.getChannel().getIdLong())){
+            return;
+        }
+
         long userID = event.getUserIdLong();
         User user = jda.retrieveUserById(userID).complete();
         EmbedBuilder embed = new EmbedBuilder();
@@ -56,6 +63,8 @@ public class ReactionListener extends ListenerAdapter {
         embed.setTitle("Réaction retirée");
         embed.setDescription(user.getAsMention() + " a retiré sa réaction");
         embed.setThumbnail(user.getAvatarUrl());
+
+        Main.PARTICIPANTS.remove(userID);
 
 
         event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID).sendMessageEmbeds(embed.build()).queue();

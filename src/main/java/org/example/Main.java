@@ -10,8 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -22,21 +21,24 @@ public class Main {
 
     public static List<Long> ANNOUNCE_CHANNEL_IDS = Arrays.asList(1196782376269918299L,1277779555196862551L);
     //TESTING :
-    //public static long ANNOUNCE_CHANNEL_ID = 1209564850142056531L;
+    //public static List<Long> ANNOUNCE_CHANNEL_IDS = Arrays.asList(1209564850142056531L);
 
     public static long LOGS_CHANNEL_ID = 1201545255024087161L;
     //TESTING :
     //public static long LOGS_CHANNEL_ID = 1209580226024317008L;
     public static List<Long> WHITELISTED_IDS = Arrays.asList(262674203931574273L, 191213751746166785L);
     public static long HOST_ROLE_ID = 1272542290967003218L;
-    public static long BOT_ID = 1209564326902366249L;
-    //TESTING :
-    //public static long BOT_ID = 1209564326902366249L;
 
-    public static List<Long> ROLES_TO_PING = List.of(1209253560445960243L);
+    //TESTING :
+    //public static long BOT_ID = 1211273034686791741L;
+    public static long BOT_ID = 1209564326902366249L;
+
+  public static List<Long> ROLES_TO_PING = List.of(1209253560445960243L);
 
     //TESTING :
     //public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
+
+    public static List<Long> PARTICIPANTS = new ArrayList<>();
     public static void main(String[] args) {
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
@@ -62,37 +64,20 @@ public class Main {
                         .addOption(OptionType.STRING, "horaire", "L'heure de l'UHC", true)
                         .addOption(OptionType.STRING, "slots", "Le nombre de slots maximum", true)
                         .addOption(OptionType.STRING, "mdj", "Le mode de jeu", true)
-                        .addOption(OptionType.STRING, "description", "Informations sur la partie", true)
+                        .addOption(OptionType.STRING, "description", "Informations sur la partie", true),
+
+                Commands.slash("link", "Lier votre compte Minecraft à votre compte Discord")
+                        .addOption(OptionType.STRING, "pseudo", "Votre pseudo Minecraft", true),
+
+                Commands.slash("participants", "Afficher les participants à l'UHC")
 
 
         ).queue();
 
-        jda.addEventListener(new AnnonceCommand(jda), new ReactionListener(jda), new MessageListener());
+        jda.addEventListener(new AnnonceCommand(jda), new LinkCommand(), new ParticipantsCommand(), new ReactionListener(jda), new MessageListener());
 
 
     }
 
-    public static void insertData(Connection conn, String valeurColonne1, String valeurColonne2) {
-        try {
-            // Requête SQL d'insertion de données
-            String sql = "INSERT INTO nom_de_la_table (colonne1, colonne2) VALUES (?, ?)";
 
-            // Création de l'objet PreparedStatement
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-
-            // Remplacement des ? par les valeurs à insérer
-            pstmt.setString(1, valeurColonne1);
-            pstmt.setString(2, valeurColonne2);
-
-            // Exécution de la requête d'insertion
-            pstmt.executeUpdate();
-
-            // Fermeture des ressources
-            pstmt.close();
-
-            System.out.println("Données insérées avec succès !");
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de l'insertion des données : " + e.getMessage());
-        }
-    }
 }

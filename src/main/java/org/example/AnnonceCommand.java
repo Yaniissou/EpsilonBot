@@ -49,6 +49,8 @@ public class AnnonceCommand extends ListenerAdapter {
            MessageHistory history = MessageHistory.getHistoryFromBeginning(event.getGuild().getTextChannelById(Main.LOGS_CHANNEL_ID)).complete();
            history.getRetrievedHistory().forEach(m -> m.delete().queue());
 
+           //Clear participants
+           Main.PARTICIPANTS.clear();
 
            EmbedBuilder embed = new EmbedBuilder();
            embed.setAuthor(user.getName(), user.getAvatarUrl(), user.getAvatarUrl());
@@ -64,14 +66,6 @@ public class AnnonceCommand extends ListenerAdapter {
            event.getChannel().sendMessage(sb.toString()).queue();
            event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> {
                message.addReaction(Emoji.fromUnicode("\u2705")).queue();
-               message.createThreadChannel("Mettez vos pseudos ici !").queue();
-               try {
-                   DatabaseManager.connect("/app/db/botDB.db");
-                   DatabaseManager.insertMessage(message.getId(),message.getAuthor().getId(),mdj);
-                   DatabaseManager.close();
-               } catch (SQLException e) {
-                   throw new RuntimeException(e);
-               }
 
            });
            event.reply("Annonce envoyée avec succès !").setEphemeral(true).queue();
