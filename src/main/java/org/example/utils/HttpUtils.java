@@ -14,7 +14,7 @@ public class HttpUtils {
     public static int createUser(String pseudo, long discordId) {
         String jsonInputString = String.format("{\"discordID\":%d, \"minecraftUsername\":\"%s\"}", discordId, pseudo);
         try {
-            int responseCode = sendPostRequest("http://espilonapi:8080/users", jsonInputString);
+            int responseCode = sendPostRequest("http://epsilonapi:8080/users", jsonInputString);
             return responseCode;
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,7 +102,7 @@ public class HttpUtils {
 
         try {
             // Créer la connexion HTTP
-            URL url = new URL("http://espilonapi:8080/users/usernames");
+            URL url = new URL("http://epsilonapi:8080/users/usernames");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json; utf-8");
