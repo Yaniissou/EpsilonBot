@@ -78,7 +78,7 @@ public class AnnonceCommand extends ListenerAdapter {
            embed.setFooter("Réagissez avec ✅ pour participer à la partie" , null);
 
            StringBuilder sb = new StringBuilder();
-           Main.ROLES_TO_PING.forEach(roleid -> sb.append(event.getGuild().getRoleById(roleid).getAsMention()));
+           //Main.ROLES_TO_PING.forEach(roleid -> sb.append(event.getGuild().getRoleById(roleid).getAsMention()));
            channel.sendMessage(sb.toString()).queue();
            channel.sendMessageEmbeds(embed.build()).complete().addReaction(Emoji.fromUnicode("\u2705")).queue();
            channel.sendMessage("*Cette partie nécessite que vous soyez link* (</link:1282489633724305461>)").queue();
