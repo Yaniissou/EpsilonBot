@@ -2,13 +2,14 @@ package org.example;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.example.utils.HttpUtils;
 
 import java.awt.*;
+import java.util.List;
 
 public class ReactionListener extends ListenerAdapter {
 
@@ -28,6 +29,26 @@ public class ReactionListener extends ListenerAdapter {
         }
 
         long userID = event.getUserIdLong();
+
+        if (!Main.ANNOUNCE_CHANNEL_IDS.contains(event.getChannel().getIdLong())){
+            return;
+        }
+
+        if (HttpUtils.getLinkedUsernames(List.of(userID)).isEmpty()){
+            event.retrieveUser().complete().openPrivateChannel().complete().sendMessage("Vous devez lier votre compte pour participer à une partie. Pour cela, utilisez la commande </link:1282489633724305461>").queue();
+            event.getReaction().removeReaction(event.getUser()).queue();
+            return;
+        }
+
+        int response = HttpUtils.createGameUser(userID, HttpUtils.getLastGame());
+
+        System.out.println(response);
+        if (response == 406){
+            event.retrieveUser().complete().openPrivateChannel().complete().sendMessage("La file d'attente est pleine !").queue();
+            event.getReaction().removeReaction(event.getUser()).queue();
+            return;
+        }
+
         User user = jda.retrieveUserById(userID).complete();
         EmbedBuilder embed = new EmbedBuilder();
 
@@ -59,6 +80,7 @@ public class ReactionListener extends ListenerAdapter {
         User user = jda.retrieveUserById(userID).complete();
         EmbedBuilder embed = new EmbedBuilder();
 
+        HttpUtils.removeGameUser(userID,HttpUtils.getLastGame());
         embed.setColor(Color.RED);
         embed.setTitle("Réaction retirée");
         embed.setDescription(user.getAsMention() + " a retiré sa réaction");
