@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HttpUtils {
 
-    private static final String API_URL = "http://localhost:8080";
+    private static final String API_URL = "http://epsilonapi:8080";
     public static int createUser(String minecraftUsername, long discordId) {
         OkHttpClient client = new OkHttpClient();
 
