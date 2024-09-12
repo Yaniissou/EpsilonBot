@@ -11,13 +11,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.example.utils.HttpUtils;
 
 import java.awt.*;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 public class AnnonceCommand extends ListenerAdapter {
@@ -81,7 +78,7 @@ public class AnnonceCommand extends ListenerAdapter {
            embed.setFooter("Réagissez avec ✅ pour participer à la partie" , null);
 
            StringBuilder sb = new StringBuilder();
-           Main.ROLES_TO_PING.forEach(roleid -> sb.append(event.getGuild().getRoleById(roleid).getAsMention()));
+           //Main.ROLES_TO_PING.forEach(roleid -> sb.append(event.getGuild().getRoleById(roleid).getAsMention()));
            channel.sendMessage(sb.toString()).queue();
            channel.sendMessageEmbeds(embed.build()).complete().addReaction(Emoji.fromUnicode("\u2705")).queue();
            channel.sendMessage("*Cette partie nécessite que vous soyez link* (</link:1282489633724305461>)").queue();
