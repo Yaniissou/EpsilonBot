@@ -1,93 +1,123 @@
 package org.example.utils;
 
 import com.google.gson.Gson;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 public class HttpUtils {
 
-    public static int createUser(String pseudo, long discordId) {
-        String jsonInputString = String.format("{\"discordID\":%d, \"minecraftUsername\":\"%s\"}", discordId, pseudo);
+    private static final String API_URL = "http://localhost:8080";
+    public static int createUser(String minecraftUsername, long discordId) {
+        OkHttpClient client = new OkHttpClient();
+
+        final FormBody body = new FormBody.Builder()
+                .add("discordID", String.valueOf(discordId))
+                .add("minecraftUsername", minecraftUsername)
+                .build();
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/users")
+                .post(body)
+                .build();
+
         try {
-            int responseCode = sendPostRequest("http://epsilonapi:8080/users", jsonInputString);
-            return responseCode;
+            client.newCall(request).execute();
+            return 201;
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
     }
 
-    private static int sendPostRequest(String url, String jsonInputString) throws Exception {
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    public static int createGameUser(long discordId, long gameId) {
+        OkHttpClient client = new OkHttpClient();
 
-        // Ajouter les headers de la requête
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setRequestProperty("Accept", "application/json");
+        final FormBody body = new FormBody.Builder()
+                .add("discordID", String.valueOf(discordId))
+                .add("gameID", String.valueOf(gameId))
+                .build();
 
-        // Activer le mode output
-        con.setDoOutput(true);
+        final Request request = new Request.Builder()
+                .url(API_URL + "/gameusers")
+                .post(body)
+                .build();
 
-        // Envoyer les données de la requête
-        try (OutputStream os = con.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
 
-        // Lire la réponse
-        int responseCode = con.getResponseCode();
-        System.out.println("Response Code : " + responseCode);
-        return responseCode;
-    }
-
-    public static String sendGetRequest(String urlString) throws Exception {
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-        // Définir la méthode de requête
-        con.setRequestMethod("GET");
-
-        // Lire la réponse
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        // Retourner la réponse JSON en tant que chaîne
-        return response.toString();
-    }
-
-    public static void processJsonResponse(String jsonResponse) {
-        // Conversion manuelle du JSON en tableau
-        String[] jsonArray = jsonResponse.replaceAll("[\\[\\]{}]", "").split("(?<=\\}),(?=\\{)");
-
-        for (String jsonObjectStr : jsonArray) {
-            String minecraftUsername = extractValue(jsonObjectStr, "minecraftUsername");
-            System.out.println("Minecraft Username: " + minecraftUsername);
+        try {
+            Response execute = client.newCall(request).execute();
+            return execute.code();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
         }
     }
 
-    private static String extractValue(String jsonObjectStr, String key) {
-        String searchPattern = "\"" + key + "\":\"";
-        int startIndex = jsonObjectStr.indexOf(searchPattern) + searchPattern.length();
-        int endIndex = jsonObjectStr.indexOf("\"", startIndex);
+    public static int removeGameUser(long discordId, long gameId) {
+        OkHttpClient client = new OkHttpClient();
 
-        if (startIndex != -1 && endIndex != -1) {
-            return jsonObjectStr.substring(startIndex, endIndex);
+        final FormBody body = new FormBody.Builder()
+                .add("discordID", String.valueOf(discordId))
+                .add("gameID", String.valueOf(gameId))
+                .build();
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/gameusers")
+                .delete(body)
+                .build();
+
+        try {
+            client.newCall(request).execute();
+            return 204;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
         }
-        return "";
     }
 
+    public static int createGame(String host, String gamemode, int maxPlayers, String date) {
+        OkHttpClient client = new OkHttpClient();
+
+        final FormBody body = new FormBody.Builder()
+                .add("host", host)
+                .add("gamemode", gamemode)
+                .add("maxPlayers", String.valueOf(maxPlayers))
+                .add("date", date)
+                .build();
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/games")
+                .post(body)
+                .build();
+
+        try {
+            client.newCall(request).execute();
+            return 201;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public static long getLastGame() {
+        OkHttpClient client = new OkHttpClient();
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/games/last")
+                .get()
+                .build();
+
+        try {
+            String response = client.newCall(request).execute().body().string();
+            return Long.parseLong(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
     /**
      * Envoie une requête POST à l'API pour récupérer les pseudos en fonction d'une liste d'IDs.
@@ -95,41 +125,42 @@ public class HttpUtils {
      * @param ids Liste des IDs pour lesquels récupérer les pseudos
      * @return Liste des pseudos récupérés depuis l'API
      */
-    public static List<String> fetchUsernames(List<Long> ids) {
-        Gson gson = new Gson();
-        // Convertir la liste d'IDs en JSON
-        String jsonInputString = gson.toJson(ids);
+    public static List<String> getLinkedUsernames(List<Long> ids) {
+        OkHttpClient client = new OkHttpClient();
+
+        final FormBody.Builder bodyBuilder = new FormBody.Builder();
+        for (Long id : ids) {
+            bodyBuilder.add("ids", String.valueOf(id));
+        }
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/users/usernames")
+                .post(bodyBuilder.build())
+                .build();
 
         try {
-            // Créer la connexion HTTP
-            URL url = new URL("http://epsilonapi:8080/users/usernames");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json; utf-8");
-            connection.setRequestProperty("Accept", "application/json");
-            connection.setDoOutput(true);
-
-            // Envoyer la requête
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
-
-            // Lire la réponse
-            StringBuilder response = new StringBuilder();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-                String responseLine;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-            }
-
-            // Convertir la réponse JSON en liste de pseudos
-            return gson.fromJson(response.toString(), List.class);
-
+            String response = client.newCall(request).execute().body().string();
+            return new Gson().fromJson(response, List.class);
         } catch (Exception e) {
             e.printStackTrace();
-            return List.of(); // Retourne une liste vide en cas d'erreur
+            return null;
+        }
+    }
+
+    public static List<String> getParticipants(){
+        OkHttpClient client = new OkHttpClient();
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/gameusers/" + getLastGame())
+                .get()
+                .build();
+
+        try {
+            String response = client.newCall(request).execute().body().string();
+            return new Gson().fromJson(response, List.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
