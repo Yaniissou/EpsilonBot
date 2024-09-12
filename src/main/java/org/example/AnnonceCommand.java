@@ -11,13 +11,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.example.utils.HttpUtils;
 
 import java.awt.*;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 public class AnnonceCommand extends ListenerAdapter {
