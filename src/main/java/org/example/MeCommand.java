@@ -15,7 +15,7 @@ public class MeCommand extends ListenerAdapter {
         if (!event.getName().equalsIgnoreCase("me")) return;
 
         final long discordID = event.getUser().getIdLong();
-        final String pseudo = HttpUtils.getLinkedUsernames(Arrays.asList(discordID)).stream().findFirst().orElse(null);
+        final String pseudo = HttpUtils.getUsername(discordID);
 
         if (pseudo == null) {
             event.reply("Vous n'êtes pas lié à un compte Minecraft.").setEphemeral(true).queue();

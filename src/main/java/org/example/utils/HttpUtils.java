@@ -147,6 +147,23 @@ public class HttpUtils {
         }
     }
 
+    public static String getUsername(long id) {
+        OkHttpClient client = new OkHttpClient();
+
+        final Request request = new Request.Builder()
+                .url(API_URL + "/users/" + id)
+                .get()
+                .build();
+
+        try {
+            String response = client.newCall(request).execute().body().string();
+            return new Gson().fromJson(response, String.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static List<String> getParticipants(){
         OkHttpClient client = new OkHttpClient();
 
