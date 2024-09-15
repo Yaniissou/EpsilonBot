@@ -68,7 +68,8 @@ public static long BOT_ID = 1209564326902366249L;
                 Commands.slash("link", "Lier votre compte Minecraft à votre compte Discord")
                         .addOption(OptionType.STRING, "pseudo", "Votre pseudo Minecraft", true),
 
-                Commands.slash("participants", "Afficher les participants à l'UHC")
+                Commands.slash("participants", "Afficher les participants à l'UHC"),
+                Commands.slash("me", "Afficher votre pseudo Minecraft lié à votre compte Discord")
 
 
         ).queue();
