@@ -42,6 +42,7 @@ public static long BOT_ID = 1209564326902366249L;
     public static void main(String[] args) {
         // Chemin absolu vers la base de données SQLite
         String dbPath = "/app/db/botDB.db";
+        String token = System.getenv("TOKEN");
 
         // Connexion à la base de données SQLite
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath)) {
@@ -51,7 +52,7 @@ public static long BOT_ID = 1209564326902366249L;
             System.err.println("Erreur lors de la connexion à la base de données SQLite : " + e.getMessage());
         }
 
-        JDABuilder builder = JDABuilder.createDefault(args[0]);
+        JDABuilder builder = JDABuilder.createDefault(token);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT);
 
