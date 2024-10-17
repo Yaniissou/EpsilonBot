@@ -15,25 +15,25 @@ import java.util.*;
 public class Main {
 
 
-    public static long SERVER_ID = 1196782142739447858L;
+    public static long SERVER_ID = 1294431282842959967L;
     //TESTING :
     //public static long SERVER_ID =1209564843775098991L;
 
-    public static List<Long> ANNOUNCE_CHANNEL_IDS = Arrays.asList(1196782376269918299L,1277779555196862551L);
+    public static List<Long> ANNOUNCE_CHANNEL_IDS = Arrays.asList(1294452095369478224L);
     //TESTING :
     //public static List<Long> ANNOUNCE_CHANNEL_IDS = Arrays.asList(1209564850142056531L);
 
-   public static long LOGS_CHANNEL_ID = 1201545255024087161L;
+   public static long LOGS_CHANNEL_ID = 1294670254387105883L;
     //TESTING :
     //public static long LOGS_CHANNEL_ID = 1209580226024317008L;
     public static List<Long> WHITELISTED_IDS = Arrays.asList(262674203931574273L, 191213751746166785L);
-    public static long HOST_ROLE_ID = 1272542290967003218L;
+    public static long HOST_ROLE_ID = 1294433557636448336L;
 
     //TESTING :
     //public static long BOT_ID = 1211273034686791741L;
 public static long BOT_ID = 1209564326902366249L;
 
-   public static List<Long> ROLES_TO_PING = List.of(1209253560445960243L);
+   public static List<Long> ROLES_TO_PING = List.of(1294436629083328594L);
 
     //TESTING :
     // public static List<Long> ROLES_TO_PING = Arrays.asList(1209593119675387974L);
