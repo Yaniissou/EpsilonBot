@@ -28,8 +28,8 @@ jobs:
 
       # Construire l'image Docker
       - name: Build Docker image
-        run: docker build -t registry.gitlab.com/${{ secrets.GITLAB_PROJECT_PATH }}/epsilonbot:${{ github.sha }} .
+        run: docker build -t registry.gitlab.com/yanissou/epsilonbot:${{ github.sha }} .
 
       # Pousser l'image vers le GitLab Container Registry
       - name: Push Docker image
-        run: docker push registry.gitlab.com/${{ secrets.GITLAB_PROJECT_PATH }}/epsilonbot:${{ github.sha }}
+        run: docker push registry.gitlab.com/yanissou/epsilonbot:${{ github.sha }}
