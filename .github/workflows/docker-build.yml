@@ -30,4 +30,4 @@ jobs:
         run: docker build . -t ${{ secrets.CI_REGISTRY }}/yanissou/${{ secrets.CI_PROJECT_NAME }}:latest
 
       - name: Push Docker image
-        run: docker push ${{ secrets.CI_REGISTRY }}/yanissou/${{ secrets.CI_PROJECT_NAME }}:latest
+        run: docker push gitlab.com/yanissou/epsilonbot:latest
