@@ -21,7 +21,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copier le fichier JAR depuis l'étape de build
-COPY --from=build /app/target/ton-bot-discord.jar /app/ton-bot-discord.jar
+COPY --from=build /app/target/EpsilonBot-1.0-SNAPSHOT.jar /app/epsilonbot.jar
 
 # Définir la commande pour exécuter le bot
-CMD ["java", "-jar", "/app/ton-bot-discord.jar"]
+CMD ["java", "-jar", "/app/epsilonbot.jar"]
